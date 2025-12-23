@@ -1,0 +1,418 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #0a1628 0%, #1a365d 40%, #234e82 70%, #2d6a9f 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Yıldızlı Gökyüzü */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        /* Büyük parlak yıldızlar */
+        radial-gradient(3px 3px at 10% 10%, #fff, transparent),
+        radial-gradient(4px 4px at 25% 5%, #ffd700, transparent),
+        radial-gradient(3px 3px at 40% 15%, #fff, transparent),
+        radial-gradient(4px 4px at 60% 8%, #ffd700, transparent),
+        radial-gradient(3px 3px at 80% 12%, #fff, transparent),
+        radial-gradient(4px 4px at 95% 6%, #ffd700, transparent),
+        /* Orta boy yıldızlar */
+        radial-gradient(2px 2px at 5% 25%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 15% 20%, rgba(255,215,0,0.8), transparent),
+        radial-gradient(2px 2px at 30% 28%, #fff, transparent),
+        radial-gradient(2px 2px at 45% 22%, rgba(255,215,0,0.9), transparent),
+        radial-gradient(2px 2px at 55% 18%, #fff, transparent),
+        radial-gradient(2px 2px at 70% 25%, rgba(255,215,0,0.8), transparent),
+        radial-gradient(2px 2px at 85% 20%, #fff, transparent),
+        radial-gradient(2px 2px at 92% 28%, rgba(255,215,0,0.9), transparent),
+        /* Küçük yıldızlar - üst */
+        radial-gradient(1px 1px at 8% 35%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 20% 32%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 35% 38%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 50% 30%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 65% 35%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 78% 33%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 88% 37%, rgba(255,255,255,0.7), transparent),
+        /* Küçük yıldızlar - orta */
+        radial-gradient(1px 1px at 12% 45%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 28% 42%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 42% 48%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 58% 44%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 72% 46%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 82% 43%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 96% 47%, rgba(255,255,255,0.5), transparent);
+    background-size: 100% 100%;
+    animation: twinkle 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ek yıldız katmanı */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(2px 2px at 3% 15%, rgba(255,215,0,0.7), transparent),
+        radial-gradient(2px 2px at 18% 8%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 33% 12%, rgba(255,215,0,0.6), transparent),
+        radial-gradient(2px 2px at 48% 5%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 63% 18%, rgba(255,215,0,0.8), transparent),
+        radial-gradient(2px 2px at 77% 10%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 90% 15%, rgba(255,215,0,0.7), transparent),
+        radial-gradient(1px 1px at 7% 28%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 23% 35%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 38% 25%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 53% 32%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 68% 28%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 83% 35%, rgba(255,255,255,0.4), transparent);
+    background-size: 100% 100%;
+    animation: twinkle 4s ease-in-out infinite 2s;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bouquet {
+    position: relative;
+    width: 700px;
+    height: 950px;
+    animation: growUp 5s ease-out forwards;
+    opacity: 0;
+    transform-origin: bottom center;
+    z-index: 10;
+}
+
+/* ===== KAR TANELERİ ===== */
+.snowflake {
+    position: fixed;
+    top: -30px;
+    color: #fff;
+    font-size: 1.5em;
+    text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 15px rgba(255,255,255,0.5);
+    animation: fall linear infinite;
+    z-index: 1;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.8));
+}
+
+.snowflake:nth-child(1) { left: 2%; animation-duration: 12s; animation-delay: 0s; font-size: 1.4em; }
+.snowflake:nth-child(2) { left: 8%; animation-duration: 15s; animation-delay: 2s; font-size: 2em; }
+.snowflake:nth-child(3) { left: 14%; animation-duration: 13s; animation-delay: 4s; font-size: 1.6em; }
+.snowflake:nth-child(4) { left: 22%; animation-duration: 16s; animation-delay: 1s; font-size: 1.8em; }
+.snowflake:nth-child(5) { left: 30%; animation-duration: 14s; animation-delay: 3s; font-size: 1.5em; }
+.snowflake:nth-child(6) { left: 38%; animation-duration: 15s; animation-delay: 5s; font-size: 1.9em; }
+.snowflake:nth-child(7) { left: 46%; animation-duration: 13s; animation-delay: 2s; font-size: 1.7em; }
+.snowflake:nth-child(8) { left: 54%; animation-duration: 16s; animation-delay: 4s; font-size: 1.4em; }
+.snowflake:nth-child(9) { left: 62%; animation-duration: 14s; animation-delay: 0s; font-size: 2.1em; }
+.snowflake:nth-child(10) { left: 70%; animation-duration: 15s; animation-delay: 3s; font-size: 1.6em; }
+.snowflake:nth-child(11) { left: 78%; animation-duration: 13s; animation-delay: 5s; font-size: 1.3em; }
+.snowflake:nth-child(12) { left: 84%; animation-duration: 16s; animation-delay: 1s; font-size: 1.8em; }
+.snowflake:nth-child(13) { left: 90%; animation-duration: 14s; animation-delay: 4s; font-size: 1.5em; }
+.snowflake:nth-child(14) { left: 95%; animation-duration: 15s; animation-delay: 2s; font-size: 2em; }
+.snowflake:nth-child(15) { left: 98%; animation-duration: 13s; animation-delay: 0s; font-size: 1.7em; }
+
+@keyframes fall {
+    0% {
+        top: -30px;
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translateX(30px) rotate(90deg);
+    }
+    50% {
+        transform: translateX(-20px) rotate(180deg);
+        opacity: 0.9;
+    }
+    75% {
+        transform: translateX(40px) rotate(270deg);
+    }
+    100% {
+        top: 105vh;
+        transform: translateX(0px) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.6; }
+    25% { opacity: 0.9; }
+    50% { opacity: 1; }
+    75% { opacity: 0.8; }
+}
+
+/* ===== DAL ===== */
+.branch {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform-origin: bottom center;
+    opacity: 0;
+    animation: branchGrow 2.5s ease-out forwards;
+}
+
+.branch .stem {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 480px;
+    background: linear-gradient(90deg, #1e5631, #2d7a45, #1e5631);
+    border-radius: 5px;
+}
+
+.branch .top {
+    position: absolute;
+    bottom: 460px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Ana dallar - açıları ve boyutları */
+.b1 { transform: translateX(-50%) rotate(0deg); animation-delay: 2s; }
+.b1 .stem { height: 520px; }
+.b1 .top { bottom: 500px; }
+
+.b2 { transform: translateX(-50%) rotate(-15deg); animation-delay: 2.5s; }
+.b2 .stem { height: 490px; }
+.b2 .top { bottom: 470px; }
+
+.b3 { transform: translateX(-50%) rotate(15deg); animation-delay: 3s; }
+.b3 .stem { height: 500px; }
+.b3 .top { bottom: 480px; }
+
+.b4 { transform: translateX(-50%) rotate(-30deg); animation-delay: 3.5s; }
+.b4 .stem { height: 470px; }
+.b4 .top { bottom: 450px; }
+
+.b5 { transform: translateX(-50%) rotate(30deg); animation-delay: 4s; }
+.b5 .stem { height: 475px; }
+.b5 .top { bottom: 455px; }
+
+.b6 { transform: translateX(-50%) rotate(-45deg); animation-delay: 4.5s; }
+.b6 .stem { height: 450px; }
+.b6 .top { bottom: 430px; }
+
+.b7 { transform: translateX(-50%) rotate(45deg); animation-delay: 5s; }
+.b7 .stem { height: 455px; }
+.b7 .top { bottom: 435px; }
+
+/* Kısa ara dallar */
+.short .stem {
+    width: 8px;
+    height: 330px;
+}
+
+.short .top {
+    bottom: 315px;
+}
+
+/* Kısa dalların açıları */
+.s1 { transform: translateX(-50%) rotate(-7deg); animation-delay: 2.2s; }
+.s1 .stem { height: 370px; }
+.s1 .top { bottom: 355px; }
+
+.s2 { transform: translateX(-50%) rotate(7deg); animation-delay: 2.8s; }
+.s2 .stem { height: 360px; }
+.s2 .top { bottom: 345px; }
+
+.s3 { transform: translateX(-50%) rotate(-22deg); animation-delay: 3.2s; }
+.s3 .stem { height: 345px; }
+.s3 .top { bottom: 330px; }
+
+.s4 { transform: translateX(-50%) rotate(22deg); animation-delay: 3.8s; }
+.s4 .stem { height: 350px; }
+.s4 .top { bottom: 335px; }
+
+.s5 { transform: translateX(-50%) rotate(-37deg); animation-delay: 4.2s; }
+.s5 .stem { height: 320px; }
+.s5 .top { bottom: 305px; }
+
+.s6 { transform: translateX(-50%) rotate(37deg); animation-delay: 4.8s; }
+.s6 .stem { height: 325px; }
+.s6 .top { bottom: 310px; }
+
+/* ===== MEYVELER ===== */
+.berries {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.berries span {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #e53935, #b71c1c);
+    border-radius: 50%;
+    box-shadow: 
+        inset -3px -3px 8px rgba(0,0,0,0.4),
+        inset 2px 2px 4px rgba(255,255,255,0.3),
+        2px 4px 6px rgba(0,0,0,0.3);
+    opacity: 0;
+    animation: berryPop 0.8s ease-out forwards;
+}
+
+/* Meyve pozisyonları - dolu küme */
+.berries span:nth-child(1) { top: 0; left: 38px; animation-delay: 5.5s; }
+.berries span:nth-child(2) { top: 10px; left: 62px; animation-delay: 5.7s; }
+.berries span:nth-child(3) { top: 28px; left: 78px; animation-delay: 5.9s; }
+.berries span:nth-child(4) { top: 50px; left: 72px; animation-delay: 6.1s; }
+.berries span:nth-child(5) { top: 70px; left: 52px; animation-delay: 6.3s; }
+.berries span:nth-child(6) { top: 70px; left: 25px; animation-delay: 6.5s; }
+.berries span:nth-child(7) { top: 50px; left: 6px; animation-delay: 6.7s; }
+.berries span:nth-child(8) { top: 28px; left: 0; animation-delay: 6.9s; }
+.berries span:nth-child(9) { top: 10px; left: 15px; animation-delay: 7.1s; }
+.berries span:nth-child(10) { top: 35px; left: 38px; animation-delay: 7.3s; }
+.berries span:nth-child(11) { top: 18px; left: 35px; animation-delay: 7.5s; }
+.berries span:nth-child(12) { top: 50px; left: 38px; animation-delay: 7.7s; }
+.berries span:nth-child(13) { top: 35px; left: 18px; animation-delay: 7.9s; }
+.berries span:nth-child(14) { top: 35px; left: 56px; animation-delay: 8.1s; }
+.berries span:nth-child(15) { top: 18px; left: 52px; animation-delay: 8.3s; }
+.berries span:nth-child(16) { top: 50px; left: 22px; animation-delay: 8.5s; }
+.berries span:nth-child(17) { top: 50px; left: 56px; animation-delay: 8.7s; }
+
+/* Küçük meyve kümeleri (kısa dallar için) */
+.berries.small {
+    width: 85px;
+    height: 85px;
+}
+
+.berries.small span {
+    width: 19px;
+    height: 19px;
+    box-shadow: 
+        inset -2px -2px 6px rgba(0,0,0,0.4),
+        inset 2px 2px 3px rgba(255,255,255,0.3),
+        2px 3px 5px rgba(0,0,0,0.3);
+}
+
+/* Küçük küme meyve pozisyonları - tam dolu küme */
+.berries.small span:nth-child(1) { top: 0; left: 34px; animation-delay: 6s; }
+.berries.small span:nth-child(2) { top: 6px; left: 50px; animation-delay: 6.1s; }
+.berries.small span:nth-child(3) { top: 20px; left: 62px; animation-delay: 6.2s; }
+.berries.small span:nth-child(4) { top: 38px; left: 65px; animation-delay: 6.3s; }
+.berries.small span:nth-child(5) { top: 54px; left: 56px; animation-delay: 6.4s; }
+.berries.small span:nth-child(6) { top: 65px; left: 41px; animation-delay: 6.5s; }
+.berries.small span:nth-child(7) { top: 65px; left: 24px; animation-delay: 6.6s; }
+.berries.small span:nth-child(8) { top: 54px; left: 8px; animation-delay: 6.7s; }
+.berries.small span:nth-child(9) { top: 38px; left: 0; animation-delay: 6.8s; }
+.berries.small span:nth-child(10) { top: 20px; left: 3px; animation-delay: 6.9s; }
+.berries.small span:nth-child(11) { top: 6px; left: 16px; animation-delay: 7s; }
+.berries.small span:nth-child(12) { top: 16px; left: 34px; animation-delay: 7.1s; }
+.berries.small span:nth-child(13) { top: 33px; left: 34px; animation-delay: 7.2s; }
+.berries.small span:nth-child(14) { top: 49px; left: 34px; animation-delay: 7.3s; }
+.berries.small span:nth-child(15) { top: 25px; left: 50px; animation-delay: 7.4s; }
+.berries.small span:nth-child(16) { top: 42px; left: 50px; animation-delay: 7.5s; }
+.berries.small span:nth-child(17) { top: 25px; left: 18px; animation-delay: 7.6s; }
+.berries.small span:nth-child(18) { top: 42px; left: 18px; animation-delay: 7.7s; }
+.berries.small span:nth-child(19) { top: 58px; left: 25px; animation-delay: 7.8s; }
+.berries.small span:nth-child(20) { top: 58px; left: 41px; animation-delay: 7.9s; }
+
+/* ===== KURDELE ===== */
+.ribbon {
+    position: absolute;
+    bottom: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    opacity: 0;
+    animation: ribbonShow 1.5s ease-out forwards;
+    animation-delay: 5s;
+}
+
+.knot {
+    width: 55px;
+    height: 55px;
+    background: radial-gradient(circle at 35% 35%, #e74c3c, #c0392b);
+    border-radius: 50%;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.bow-left, .bow-right {
+    position: absolute;
+    top: 10px;
+    width: 45px;
+    height: 70px;
+    background: linear-gradient(180deg, #e74c3c, #c0392b);
+    clip-path: polygon(50% 0, 100% 30%, 50% 100%, 0 30%);
+}
+
+.bow-left {
+    left: -32px;
+    transform: rotate(20deg);
+}
+
+.bow-right {
+    right: -32px;
+    transform: rotate(-20deg);
+}
+
+/* ===== ANİMASYONLAR ===== */
+@keyframes growUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes branchGrow {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes berryPop {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    70% {
+        transform: scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes ribbonShow {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+    }
+    70% {
+        transform: translateX(-50%) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
